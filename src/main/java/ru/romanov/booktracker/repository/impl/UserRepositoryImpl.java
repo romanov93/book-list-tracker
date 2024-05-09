@@ -7,6 +7,7 @@ import ru.romanov.booktracker.domain.user.Role;
 import ru.romanov.booktracker.domain.user.User;
 import ru.romanov.booktracker.repository.DataSourceConfig;
 import ru.romanov.booktracker.repository.interfaces.UserRepository;
+import ru.romanov.booktracker.repository.mapper.UserRowMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

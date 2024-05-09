@@ -6,6 +6,7 @@ import ru.romanov.booktracker.domain.book.Book;
 import ru.romanov.booktracker.domain.exception.ResourceMappingException;
 import ru.romanov.booktracker.repository.DataSourceConfig;
 import ru.romanov.booktracker.repository.interfaces.BookRepository;
+import ru.romanov.booktracker.repository.mapper.BookRowMapper;
 
 import java.sql.*;
 import java.time.LocalDateTime;
