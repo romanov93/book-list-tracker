@@ -1,10 +1,12 @@
 package ru.romanov.booktracker.service.impl;
 
+import org.springframework.stereotype.Service;
 import ru.romanov.booktracker.domain.book.Book;
 import ru.romanov.booktracker.service.interfaces.BookService;
 
 import java.util.List;
 
+@Service
 public class BookServiceImpl implements BookService {
     @Override
     public Book findById(Long id) {
