@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.romanov.booklist.domain.user.User;
-import ru.romanov.booklist.service.interfaces.UserService;
+import ru.romanov.booktracker.domain.user.User;
+import ru.romanov.booktracker.service.interfaces.UserService;
 
 @Service
 @RequiredArgsConstructor

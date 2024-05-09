@@ -3,8 +3,8 @@ package ru.romanov.booktracker.web.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-import ru.romanov.booklist.domain.user.Role;
-import ru.romanov.booklist.domain.user.User;
+import ru.romanov.booktracker.domain.user.Role;
+import ru.romanov.booktracker.domain.user.User;
 
 import java.util.Collection;
 import java.util.List;
