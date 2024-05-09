@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static ru.romanov.booktracker.repository.utils.TableColumnAliasStorage.*;
+
 public class UserRowMapper {
 
     private static final String ROLES_PREFIX = "ROLE_";
@@ -18,7 +20,7 @@ public class UserRowMapper {
     public static User mapRow(ResultSet resultSet) {
         Set<Role> roles = new HashSet<>();
         while (resultSet.next()) {
-            String role = resultSet.getString("user_role");
+            String role = resultSet.getString(USER_ROLE);
             roles.add(Role.valueOf(role));
         }
         resultSet.beforeFirst(); // возвращаемся в начало RS благодаря TYPE_SCROLL_INSENSITIVE и CONCUR_READ_ONLY
@@ -28,10 +30,10 @@ public class UserRowMapper {
 
         if (resultSet.next()) {
             return User.builder()
-                    .id(resultSet.getLong("user_id"))
-                    .name(resultSet.getString("user_name"))
-                    .username(resultSet.getString("user_username"))
-                    .password(resultSet.getString("user_password"))
+                    .id(resultSet.getLong(USER_ID))
+                    .name(resultSet.getString(USER_NAME))
+                    .username(resultSet.getString(USER_USERNAME))
+                    .password(resultSet.getString(USER_PASSWORD))
                     .roles(roles)
                     .books(books)
                     .build();

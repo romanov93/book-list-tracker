@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static ru.romanov.booktracker.repository.utils.TableColumnAliasStorage.*;
+
 @Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
@@ -20,27 +22,41 @@ public class BookRepositoryImpl implements BookRepository {
     private final DataSourceConfig dataSourceConfig;
 
     private final String FIND_BY_ID = """
-            SELECT b.id as book_id,
-                   b.title as book_title,
-                   b.author as book_author,
-                   b.description as book_description,
-                   b.expiration_date_to_read as book_date_to_read,
-                   b.status as book_read_status
+            SELECT b.id as %s,
+                   b.title as %s,
+                   b.author as %s,
+                   b.description as %s,
+                   b.expiration_date_to_read as %s,
+                   b.status as %s
             FROM books b
             WHERE id = ?
-            """;
+            """.formatted(
+            BOOK_ID,
+            BOOK_TITLE,
+            BOOK_AUTHOR,
+            BOOK_DESCRIPTION,
+            BOOK_DATE_TO_READ,
+            BOOK_STATUS
+    );
 
     private final String FIND_ALL_BY_USER_ID = """
-            SELECT b.id as book_id,
-                   b.title as book_title,
-                   b.author as book_author,
-                   b.description as book_description,
-                   b.expiration_date_to_read as book_date_to_read,
-                   b.status as book_read_status
+            SELECT b.id as %s,
+                   b.title as %s,
+                   b.author as %s,
+                   b.description as %s,
+                   b.expiration_date_to_read as %s,
+                   b.status as %s
             FROM books b
             JOIN users_books ub on b.id = ub.book_id
             WHERE ub.user_id = ?
-            """;
+            """.formatted(
+            BOOK_ID,
+            BOOK_TITLE,
+            BOOK_AUTHOR,
+            BOOK_DESCRIPTION,
+            BOOK_DATE_TO_READ,
+            BOOK_STATUS
+    );
 
     private final String ASSIGN = """
             INSERT INTO users_books (book_id, user_id)
