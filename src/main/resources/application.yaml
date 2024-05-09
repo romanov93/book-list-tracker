@@ -1,0 +1,13 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/booktracker_db?currentSchema=booklist
+    username: postgres
+    password: sqlpostgre
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+      data-locations: classpath:demo-data.sql
