@@ -18,6 +18,6 @@ values (1, 1),
        (4, 1);
 
 insert into users_roles (user_id, role)
-values (1, 'ADMIN'),
-       (1, 'USER'),
-       (2, 'USER');
+values (1, 'ROLE_ADMIN'),
+       (1, 'ROLE_USER'),
+       (2, 'ROLE_USER');
