@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static ru.romanov.booktracker.repository.utils.TableColumnAliasStorage.*;
 
-// @Repository
+@Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
 

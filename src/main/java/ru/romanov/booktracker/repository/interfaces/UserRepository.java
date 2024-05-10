@@ -7,13 +7,12 @@ import ru.romanov.booktracker.domain.user.User;
 
 import java.util.Optional;
 
-@Mapper
 public interface UserRepository extends CrudRepository<User> {
 
     Optional<User> findByUsername(String username);
 
-    void insertUserRole(@Param("userId") Long userId,@Param("role") Role role);
+    void insertUserRole(Long userId, Role role);
 
     // нужно для проверки доступа юзера к книге
-    boolean isBookOwner(@Param("userId") Long userId,@Param("bookId") Long bookId);
+    boolean isBookOwner(Long userId, Long bookId);
 }
