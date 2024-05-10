@@ -9,10 +9,17 @@
 - обновлять информацию о юзерах и книгах
 - удалять юзеров и книги
 
-## Задачи:
-
 ## Библиотеки:
+Spring starters: jdbc, jpa, security
+Lombok
+Postgresql
+Mapstruct
+Jakarta validation
+Jjwt
+Mybatis
 
 ## Структура проекта:
 
 ## Сборка проекта:
+
+## Задачи:
