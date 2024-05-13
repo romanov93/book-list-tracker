@@ -1,4 +1,4 @@
 databaseChangeLog:
-  -includeAll: #все файлы
-    pass: /changesets #путь к чейнджсетам(файлам мигшраций)
+  -includeAll:
+    pass: /changesets
     relativeToChangelogFile: true
