@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Schema(description = "Request for login")
 public class JwtRequest {
 
-    @Schema(description = "User email", example = "torvalds@gmail.com")
+    @Schema(description = "User email", example = "senior@gmail.com")
     @NotNull(message = "Username must be not null")
     String username;
 
