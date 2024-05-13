@@ -1,5 +1,7 @@
 package ru.romanov.booktracker.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "User Controller", description = "User API")
 public class UserController {
 
     private final UserService userService;
@@ -28,12 +31,14 @@ public class UserController {
     private final BookMapper bookMapper;
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get UserDto by id")
     public UserDto getById(@PathVariable Long id) {
         User user = userService.findById(id);
         return userMapper.toDto(user);
     }
 
     @PutMapping
+    @Operation(summary = "Update user")
     public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
         User updatedUser = userService.update(user);
@@ -41,17 +46,20 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete user by id")
     public void deleteById(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @GetMapping("/{id}/books")
+    @Operation(summary = "Get BookDto list by userId")
     public List<BookDto> getBooksByUserId(@PathVariable Long id) {
         List<Book> usersBooks = bookService.getAllByUserId(id);
         return bookMapper.toDto(usersBooks);
     }
 
     @PostMapping("/{id}/books")
+    @Operation(summary = "Add book to user")
     public BookDto createBook(@PathVariable (name = "id") Long userId,
                               @Validated(OnCreate.class) @RequestBody BookDto bookDto) {
         Book book = bookMapper.toEntity(bookDto);
