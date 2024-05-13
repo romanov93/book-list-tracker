@@ -1,7 +1,5 @@
 package ru.romanov.booktracker.repository.interfaces;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import ru.romanov.booktracker.domain.user.Role;
 import ru.romanov.booktracker.domain.user.User;
 
