@@ -104,7 +104,7 @@
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
-        
+
     </dependencies>
 
     <build>
