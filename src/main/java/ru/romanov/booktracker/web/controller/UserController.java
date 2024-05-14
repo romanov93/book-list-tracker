@@ -3,6 +3,7 @@ package ru.romanov.booktracker.web.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.romanov.booktracker.domain.book.Book;
@@ -32,6 +33,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get UserDto by id")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public UserDto getById(@PathVariable Long id) {
         User user = userService.findById(id);
         return userMapper.toDto(user);
@@ -39,6 +41,7 @@ public class UserController {
 
     @PutMapping
     @Operation(summary = "Update user")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#userDto.id)")
     public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
         User updatedUser = userService.update(user);
@@ -47,12 +50,14 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete user by id")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public void deleteById(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @GetMapping("/{id}/books")
     @Operation(summary = "Get BookDto list by userId")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public List<BookDto> getBooksByUserId(@PathVariable Long id) {
         List<Book> usersBooks = bookService.getAllByUserId(id);
         return bookMapper.toDto(usersBooks);
@@ -60,12 +65,11 @@ public class UserController {
 
     @PostMapping("/{id}/books")
     @Operation(summary = "Add book to user")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#userId)")
     public BookDto createBook(@PathVariable (name = "id") Long userId,
                               @Validated(OnCreate.class) @RequestBody BookDto bookDto) {
         Book book = bookMapper.toEntity(bookDto);
         Book createdBook = bookService.create(book, userId);
         return bookMapper.toDto(createdBook);
     }
-
-
 }
