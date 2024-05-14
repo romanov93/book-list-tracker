@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.romanov.booktracker.repository.interfaces.BookRepository">
+
+    <resultMap id="BookResultMap" type="ru.romanov.booktracker.domain.book.Book" autoMapping="false">
+        <id property="id" column="book_id"/>
+        <result property="title" column="book_title"/>
+        <result property="author" column="book_author"/>
+        <result property="description" column="book_description"/>
+        <result property="status" column="book_read_status"/>
+        <result property="expirationDateToRead" column="book_date_to_read"/>
+    </resultMap>
+    
+</mapper>
