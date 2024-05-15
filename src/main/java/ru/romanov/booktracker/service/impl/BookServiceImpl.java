@@ -1,6 +1,9 @@
 package ru.romanov.booktracker.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.romanov.booktracker.domain.book.Book;
@@ -20,19 +23,22 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "BookService::findById", key = "#id")
     public Book findById(Long id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No book with id " + id));
     }
 
-    @Transactional
+    // не кэшируем потому что сложно/дорого менять состояние кэша при добавлении/удалении книг у юзера
+    @Transactional(readOnly = true)
     @Override
-    public Book create(Book book) {
-        return null;
+    public List<Book> getAllByUserId(Long userId) {
+        return bookRepository.findAllByUserId(userId);
     }
 
     @Transactional
     @Override
+    @Cacheable(value = "BookService::findById", key = "#book.id")
     public Book create(Book book, Long userId) {
         // Создаем книгу, сетаем ей статус, связываем ее с юзером. Статус транзакшнл позволят все это сделать атомарно.
         book.setStatus(PLANNED_TO_READ);
@@ -43,6 +49,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    @CachePut(value = "BookService::findById", key = "#book.id")
     public Book update(Book book) {
         if (book.getStatus() == null) {
             book.setStatus(PLANNED_TO_READ);
@@ -51,16 +58,17 @@ public class BookServiceImpl implements BookService {
         return book;
     }
 
-
     @Transactional
     @Override
+    @CacheEvict(value = "BookService::findById", key = "#id")
     public void delete(Long id) {
         bookRepository.delete(id);
     }
 
-    @Transactional(readOnly = true)
+
+
     @Override
-    public List<Book> getAllByUserId(Long userId) {
-        return bookRepository.findAllByUserId(userId);
+    public Book create(Book book) {
+        return null;
     }
 }
