@@ -1,20 +1,21 @@
 package ru.romanov.booktracker.repository.interfaces;
 
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.romanov.booktracker.domain.book.Book;
 
 import java.util.List;
-import java.util.Optional;
 
-@Mapper
-public interface BookRepository extends CrudRepository<Book>{
+@Repository
+public interface BookRepository extends JpaRepository<Book, Long> {
 
-    List<Book> findAllByUserId(Long userId);
-
-    void assignToUserById(@Param("userId") Long userId,
-                          @Param("bookId") Long bookId);
+    @Query(value = """
+             SELECT * FROM books b
+             JOIN users_books ub ON ub.books_id = b.id
+             WHERE ub.user_id = :userId
+             """, nativeQuery = true)
+    List<Book> findAllByUserId(@Param("userId") Long userId);
 
 }
