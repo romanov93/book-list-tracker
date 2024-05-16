@@ -2,24 +2,21 @@ server:
   port: 8088
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   cache:
     type: redis
     cache-names: redis-cache
   data:
     redis:
-      host: localhost
+      host: ${REDIS_HOST}
       port: 6379 #default redis port
-      password: cmZyZWZkMzU0
+      password: ${REDIS_PASSWORD}
   datasource:
-    url: jdbc:postgresql://localhost/booktracker_db?currentSchema=booklist
-    username: postgres
-    password: sqlpostgre
+    url: jdbc:postgresql://${HOST}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      mode: never
-      continue-on-error: false
-#      data-locations: classpath:demo-data.sql
   liquibase:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
@@ -27,7 +24,7 @@ spring:
 
 security:
   jwt:
-    secret: ZWZqb3B3ZWpmd2plY2Zwd2plY2Zwb2p3ZWNmb2x3ZWNmcG93 #while secret is not change - all users keys stay valid
+    secret: ${JWT_SECRET}
     access: 3600000 #1 hour
     refresh: 2592000000 #30 days
 
