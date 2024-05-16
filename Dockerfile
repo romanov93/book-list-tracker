@@ -7,5 +7,6 @@ RUN mvn -f /pom.xml clean package
 FROM openjdk:17-jdk-slim
 # копируем из таргета в контейнер файл с раширением джар и переименовываем его:
 COPY --from=build target/*.jar application.jar
+# внутренний порт контейнера
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "application.jar"]
