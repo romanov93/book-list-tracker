@@ -78,6 +78,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Caching(evict = {
             @CacheEvict(value = "UserService::getById", key = "#id")
+            // ToDo : очистить кэш метода findByUsername
     })
     public void delete(Long id) {
         userRepository.delete(id);
