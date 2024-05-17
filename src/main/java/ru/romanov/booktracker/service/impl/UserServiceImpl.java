@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.romanov.booktracker.domain.exception.ResourceNotFoundException;
 import ru.romanov.booktracker.domain.user.User;
-import ru.romanov.booktracker.repository.interfaces.UserRepository;
-import ru.romanov.booktracker.service.interfaces.UserService;
+import ru.romanov.booktracker.repository.UserRepository;
 
 import java.util.Set;
 
@@ -19,7 +18,7 @@ import static ru.romanov.booktracker.domain.user.Role.ROLE_USER;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements ru.romanov.booktracker.service.interfaces.UserService {
 
     private final PasswordEncoder passwordEncoder;
 
@@ -50,7 +49,7 @@ public class UserServiceImpl implements UserService {
     })
     public User update(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.update(user);
+        userRepository.save(user);
         return user;
     }
 
@@ -68,9 +67,8 @@ public class UserServiceImpl implements UserService {
             throw new IllegalStateException("Password confirmation is not match to password.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.create(user);
-        userRepository.insertUserRole(user.getId(), ROLE_USER);
         user.setRoles(Set.of(ROLE_USER));
+        userRepository.save(user);
         return user;
     }
 
@@ -81,7 +79,7 @@ public class UserServiceImpl implements UserService {
             // ToDo : очистить кэш метода findByUsername
     })
     public void delete(Long id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 
     @Override

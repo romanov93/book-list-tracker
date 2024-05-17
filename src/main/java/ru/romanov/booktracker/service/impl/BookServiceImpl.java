@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.romanov.booktracker.domain.book.Book;
 import ru.romanov.booktracker.domain.exception.ResourceNotFoundException;
-import ru.romanov.booktracker.repository.interfaces.BookRepository;
+import ru.romanov.booktracker.domain.user.User;
+import ru.romanov.booktracker.repository.BookRepository;
 import ru.romanov.booktracker.service.interfaces.BookService;
+import ru.romanov.booktracker.service.interfaces.UserService;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ import static ru.romanov.booktracker.domain.book.Status.PLANNED_TO_READ;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+
+    private final UserService userService;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,10 +44,10 @@ public class BookServiceImpl implements BookService {
     @Override
     @Cacheable(value = "BookService::findById", key = "#book.id")
     public Book create(Book book, Long userId) {
-        // Создаем книгу, сетаем ей статус, связываем ее с юзером. Статус транзакшнл позволят все это сделать атомарно.
+        User user = userService.findById(userId);
         book.setStatus(PLANNED_TO_READ);
-        bookRepository.create(book);
-        bookRepository.assignToUserById(userId, book.getId());
+        user.getBooks().add(book);
+        userService.update(user);
         return book;
     }
 
@@ -54,7 +58,7 @@ public class BookServiceImpl implements BookService {
         if (book.getStatus() == null) {
             book.setStatus(PLANNED_TO_READ);
         }
-        bookRepository.update(book);
+        bookRepository.save(book);
         return book;
     }
 
@@ -62,7 +66,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @CacheEvict(value = "BookService::findById", key = "#id")
     public void delete(Long id) {
-        bookRepository.delete(id);
+        bookRepository.deleteById(id);
     }
 
 
