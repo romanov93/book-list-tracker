@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.romanov.booktracker.domain.book.Book;
+import ru.romanov.booktracker.domain.book.BookImage;
 import ru.romanov.booktracker.domain.exception.ResourceNotFoundException;
 import ru.romanov.booktracker.domain.user.User;
 import ru.romanov.booktracker.repository.BookRepository;
@@ -69,7 +70,14 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 
-
+    @Transactional
+    @Override
+    public void uploadImage(Long bookId, BookImage image) {
+        Book book = findById(bookId);
+        String fileName = imageService.uploadImage(image);
+        book.getImages().add(fileName);
+        bookRepository.save(book);
+    }
 
     @Override
     public Book create(Book book) {
