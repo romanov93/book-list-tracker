@@ -30,7 +30,7 @@ public class BookController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get BookDto by id")
-    @PreAuthorize("customSecurityExpression.canAccessBook(#id)")
+    @PreAuthorize("@customSecurityExpression.canAccessBook(#id)")
     public BookDto getById(@PathVariable Long id) {
         Book book = bookService.findById(id);
         return bookMapper.toDto(book);
@@ -38,7 +38,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete book by id")
-    @PreAuthorize("customSecurityExpression.canAccessBook(#id)")
+    @PreAuthorize("@customSecurityExpression.canAccessBook(#id)")
     public void deleteById(@PathVariable Long id) {
         bookService.delete(id);
     }
@@ -47,7 +47,7 @@ public class BookController {
     // Проверяться на валидность будут все аннотации дтошки где есть group OnUpdate.
     @PutMapping
     @Operation(summary = "Update book")
-    @PreAuthorize("customSecurityExpression.canAccessBook(#bookDto.id)")
+    @PreAuthorize("@customSecurityExpression.canAccessBook(#bookDto.id)")
     public BookDto update(@Validated(OnUpdate.class) @RequestBody BookDto bookDto) {
         Book book = bookMapper.toEntity(bookDto);
         Book updatedBook = bookService.update(book);
@@ -56,7 +56,7 @@ public class BookController {
 
     @PostMapping("/{id}/image")
     @Operation(summary = "Upload image to book")
-    @PreAuthorize("customSecurityExpression.canAccessBook(#id)")
+    @PreAuthorize("@customSecurityExpression.canAccessBook(#id)")
     public void uploadImage(@PathVariable Long id,
                             @Validated @ModelAttribute BookImageDto bookImageDto) {
         BookImage image = bookImageMapper.toEntity(bookImageDto);
