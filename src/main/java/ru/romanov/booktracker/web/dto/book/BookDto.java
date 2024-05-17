@@ -1,6 +1,7 @@
 package ru.romanov.booktracker.web.dto.book;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -14,6 +15,7 @@ import ru.romanov.booktracker.web.dto.validation.OnUpdate;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -47,4 +49,8 @@ public class BookDto {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime expirationTimeToRead;
+
+    @Schema(description = "Name of images with book")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    List<String> images;
 }

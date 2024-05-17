@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -29,4 +30,9 @@ public class Book implements Serializable {
     Status status;
 
     LocalDateTime expirationDateToRead;
+
+    @Column(name = "images")
+    @CollectionTable(name = "books_images")
+    @ElementCollection
+    List<String> images;
 }
