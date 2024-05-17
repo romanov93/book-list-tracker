@@ -31,7 +31,7 @@ public class User implements Serializable {
     String passwordConfirmation;
 
     @Column(name = "role")
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(value = EnumType.STRING)
     @CollectionTable(name = "users_roles")
     Set<Role> roles;
