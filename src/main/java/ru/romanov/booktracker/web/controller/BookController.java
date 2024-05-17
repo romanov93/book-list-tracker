@@ -12,6 +12,7 @@ import ru.romanov.booktracker.service.interfaces.BookService;
 import ru.romanov.booktracker.web.dto.book.BookDto;
 import ru.romanov.booktracker.web.dto.book.BookImageDto;
 import ru.romanov.booktracker.web.dto.validation.OnUpdate;
+import ru.romanov.booktracker.web.mapper.BookImageMapper;
 import ru.romanov.booktracker.web.mapper.BookMapper;
 
 @RestController
@@ -24,6 +25,8 @@ public class BookController {
     private final BookService bookService;
 
     private final BookMapper bookMapper;
+
+    private final BookImageMapper bookImageMapper;
 
     @GetMapping("/{id}")
     @Operation(summary = "Get BookDto by id")
