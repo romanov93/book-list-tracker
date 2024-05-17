@@ -8,10 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.romanov.booktracker.domain.exception.AccessDeniedException;
-import ru.romanov.booktracker.domain.exception.ExceptionBody;
-import ru.romanov.booktracker.domain.exception.ResourceMappingException;
-import ru.romanov.booktracker.domain.exception.ResourceNotFoundException;
+import ru.romanov.booktracker.domain.exception.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,6 +70,12 @@ public class ControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionBody handleAuthentication(AuthenticationException e) {
         return new ExceptionBody("Authentication failed");
+    }
+
+    @ExceptionHandler(ImageUploadException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handleImageUpload(ImageUploadException e) {
+        return new ExceptionBody(e.getMessage());
     }
 
     // Перехват незапланированных исключений
