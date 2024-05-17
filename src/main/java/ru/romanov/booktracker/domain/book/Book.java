@@ -31,7 +31,7 @@ public class Book implements Serializable {
 
     LocalDateTime expirationDateToRead;
 
-    @Column(name = "images")
+    @Column(name = "image")
     @CollectionTable(name = "books_images")
     @ElementCollection
     List<String> images;
