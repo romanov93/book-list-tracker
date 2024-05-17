@@ -12,6 +12,7 @@ import ru.romanov.booktracker.domain.exception.ResourceNotFoundException;
 import ru.romanov.booktracker.domain.user.User;
 import ru.romanov.booktracker.repository.BookRepository;
 import ru.romanov.booktracker.service.interfaces.BookService;
+import ru.romanov.booktracker.service.interfaces.ImageService;
 import ru.romanov.booktracker.service.interfaces.UserService;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     private final UserService userService;
+
+    private final ImageService imageService;
 
     @Override
     @Transactional(readOnly = true)
@@ -72,6 +75,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    @CacheEvict(value = "BookService::findById", key = "#bookId")
     public void uploadImage(Long bookId, BookImage image) {
         Book book = findById(bookId);
         String fileName = imageService.uploadImage(image);
