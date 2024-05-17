@@ -30,6 +30,3 @@ security:
 
 springdoc:
   override-with-generic-response: false
-
-mybatis:
-  mapper-locations: classpath:mybatis/mapper/*.xml
