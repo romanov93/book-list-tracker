@@ -32,3 +32,10 @@ create table if not exists users_roles
     primary key (user_id, role),
     constraint fk_users_roles_users foreign key (user_id) references users (id) on delete cascade on update no action
 );
+
+create table if not exists books_images
+(
+    book_id bigint not null,
+    image varchar not null,
+    constraint fk_books_images_books foreign key (book_id) references books (id) on delete cascade on update no action
+);
