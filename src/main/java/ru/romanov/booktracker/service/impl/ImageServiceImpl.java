@@ -52,10 +52,11 @@ public class ImageServiceImpl implements ImageService {
         boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
                 .bucket(minioProperties.getBucket())
                 .build());
-        if (!found)
+        if (!found) {
             minioClient.makeBucket(MakeBucketArgs.builder()
                     .bucket(minioProperties.getBucket())
                     .build());
+        }
     }
 
     private String generateFileName(MultipartFile file) {
