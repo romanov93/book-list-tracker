@@ -8,12 +8,12 @@ create table if not exists users
 
 create table if not exists books
 (
-    id              bigserial primary key,
-    title           varchar(255) not null,
-    author          varchar(255) not null,
-    description     varchar(512) null,
-    status          varchar(255) not null,
-    expiration_date_to_read timestamp null
+    id                      bigserial primary key,
+    title                   varchar(255) not null,
+    author                  varchar(255) not null,
+    description             varchar(512) null,
+    status                  varchar(255) not null,
+    expiration_date_to_read timestamp    null
 );
 
 create table if not exists users_books

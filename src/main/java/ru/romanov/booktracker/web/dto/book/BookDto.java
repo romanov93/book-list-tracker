@@ -6,13 +6,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.romanov.booktracker.domain.book.Status;
 import ru.romanov.booktracker.web.dto.validation.OnCreate;
 import ru.romanov.booktracker.web.dto.validation.OnUpdate;
-
 
 import java.time.LocalDateTime;
 import java.util.List;

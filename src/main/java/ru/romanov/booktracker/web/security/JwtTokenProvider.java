@@ -124,6 +124,7 @@ public class JwtTokenProvider {
                 .get("id")
                 .toString();
     }
+
     private List<String> resolveRoles(Set<Role> roles) {
         return roles.stream()
                 .map(Role::name)

@@ -8,7 +8,7 @@ values ('Clean Code', 'Robert C. Martin ', null, 'READ_DONE', '2023-01-29 12:00:
         'Learning about algorithms doesn''t have to be boring! Get a sneak peek at the fun, illustrated,' ||
         ' and friendly examples you''ll find in Grokking Algorithms on Manning Publications'' YouTube channel.',
         'READ_STARTED', '2024-05-30 00:00:00'),
-       ('Java 8 Preview Sampler', 'Herbert Schildt',  null, 'PLANNED_TO_READ', null),
+       ('Java 8 Preview Sampler', 'Herbert Schildt', null, 'PLANNED_TO_READ', null),
        ('Computer Networks 5th', 'Andrew S. Tanenbaum', 'book for megabrains', 'READ_STARTED', '2025-01-01 00:00:00');
 
 insert into users_books (book_id, user_id)

@@ -5,6 +5,6 @@ import ru.romanov.booktracker.domain.user.User;
 import ru.romanov.booktracker.web.dto.user.UserDto;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper extends Mappable<User, UserDto>{
+public interface UserMapper extends Mappable<User, UserDto> {
 
 }

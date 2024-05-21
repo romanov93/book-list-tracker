@@ -66,7 +66,7 @@ public class UserController {
     @PostMapping("/{id}/books")
     @Operation(summary = "Add book to user")
     @PreAuthorize("@customSecurityExpression.canAccessUser(#userId)")
-    public BookDto createBook(@PathVariable (name = "id") Long userId,
+    public BookDto createBook(@PathVariable(name = "id") Long userId,
                               @Validated(OnCreate.class) @RequestBody BookDto bookDto) {
         Book book = bookMapper.toEntity(bookDto);
         Book createdBook = bookService.create(book, userId);
