@@ -1,0 +1,12 @@
+@startuml
+
+component [Server] as server #38761d
+component [Database\n(postgres)] as db #be29ec
+component [Storage\n(minio)] as store #87ceff
+component [Cache\n(redis)] as cache #fcc200
+
+server -up-> store
+server -down-> cache
+server -right-> db
+
+@enduml
