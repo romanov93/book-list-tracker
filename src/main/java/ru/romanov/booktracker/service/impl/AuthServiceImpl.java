@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
         /* Здесь менеджер аутентификации вызывает
          * наш UserDetailsService, достает юзера,
          * и проверяет на совпадение переданый пароль
-        */
+         */
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(), loginRequest.getPassword()
         ));

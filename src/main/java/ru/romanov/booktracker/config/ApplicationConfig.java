@@ -88,12 +88,12 @@ public class ApplicationConfig {
                         configurer
                                 .authenticationEntryPoint(
                                         (request, response, exception) -> {
-                                    response.setStatus(
-                                            HttpStatus.UNAUTHORIZED
-                                                    .value()
-                                    );
-                                    response.getWriter()
-                                            .write("Unauthorized.");
+                                            response.setStatus(
+                                                    HttpStatus.UNAUTHORIZED
+                                                            .value()
+                                            );
+                                            response.getWriter()
+                                                    .write("Unauthorized.");
                                         })
                                 .accessDeniedHandler(
                                         (request, response, exception) -> {

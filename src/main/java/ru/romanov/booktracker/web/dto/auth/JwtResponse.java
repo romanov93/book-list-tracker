@@ -24,12 +24,12 @@ public class JwtResponse {
     String username;
 
     @Schema(description = "authentication jwt token",
-            example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsZX" +
-                    "ggUGVyZWlyYSIsImlhdCI6MTUxNjIzOTAyMn0.nobUtzoKDph0A33laElWN8k5mDccaLOQYoO8cBe7064")
+            example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsZX"
+                   + "ggUGVyZWlyYSIsImlhdCI6MTUxNjIzOTAyMn0.nobUtzoKDph0A33laElWN8k5mDccaLOQYoO8cBe7064")
     String accessToken;
 
     @Schema(description = "refresh jwt token",
-            example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL1lPVVJfRE9NQUlOLyIsIn" +
-                    "N1YiI6ImF1dGgwfDEyMzQ1NiIsImF1ZCI6WyJteS1hcGktaWRlbnRpZmllciIsImh0dHBzOi8vWU9VUl9")
+            example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL1lPVVJfRE9NQUlOLyIsIn"
+                   + "N1YiI6ImF1dGgwfDEyMzQ1NiIsImF1ZCI6WyJteS1hcGktaWRlbnRpZmllciIsImh0dHBzOi8vWU9VUl9")
     String refreshToken;
 }
