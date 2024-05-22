@@ -1,0 +1,40 @@
+@startuml
+'title how client get data
+
+autonumber
+skinparam {
+MaxMessageSize 70
+}
+skinparam sequence {
+MessageAlign center
+'ParticipantPadding 0
+}
+
+actor "Client" as cli order 10
+participant "Controller" as contr order 20
+participant "Service" as serv order 30
+participant "Cache" as cache order 40
+participant "Repository" as repo order 50
+database "Database" as db order 60
+!$req = "<font color=red> request"
+!$res = "<font color=green> response"
+
+== try to get data from cache ==
+cli -> contr : $req
+contr -> serv : $req
+serv -> cache : $req
+cache --> serv : $res if cache exist
+serv --> contr : $res
+contr --> cli : $res
+
+== if cache was empty - get data from DB and put to cache ==
+autonumber 4
+serv -> repo : $req
+repo -> db : $req
+db -> repo : $res
+repo -> serv : $res
+serv --> cache : $res
+serv -> contr : $res
+contr -> cli : $res
+
+@enduml
