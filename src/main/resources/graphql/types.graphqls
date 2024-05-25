@@ -1,0 +1,37 @@
+scalar LocalDateTime
+
+type User {
+    id: ID
+    name: String
+    username: String
+}
+
+input InputUser {
+    id: ID
+    name: String
+    username: String
+    password: String
+    passwordConfirmation: String
+}
+
+type Book {
+    id: ID
+    title: String
+    description: String
+    status: ReadStatus
+    expirationDate: LocalDateTime
+    images: [String]
+}
+
+input InputBook {
+    id: ID
+    title: String
+    description: String
+    expirationDate: LocalDateTime
+}
+
+enum ReadStatus {
+    PLANNED_TO_READ,
+    READ_STARTED,
+    READ_DONE
+}
