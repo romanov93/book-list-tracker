@@ -50,6 +50,7 @@ public class BookServiceImpl implements BookService {
     public Book create(Book book, Long userId) {
         User user = userService.findById(userId);
         book.setStatus(PLANNED_TO_READ);
+        bookRepository.save(book);
         user.getBooks().add(book);
         userService.update(user);
         return book;

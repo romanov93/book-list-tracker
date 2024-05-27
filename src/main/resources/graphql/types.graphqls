@@ -17,17 +17,19 @@ input InputUser {
 type Book {
     id: ID
     title: String
+    author: String
     description: String
     status: ReadStatus
-    expirationDate: LocalDateTime
+    expirationTimeToRead: LocalDateTime
     images: [String]
 }
 
 input InputBook {
     id: ID
     title: String
+    author: String
     description: String
-    expirationDate: LocalDateTime
+    expirationTimeToRead: LocalDateTime
 }
 
 enum ReadStatus {
