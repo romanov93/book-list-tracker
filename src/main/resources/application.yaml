@@ -21,6 +21,10 @@ spring:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
     default-schema: booklist
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
 
 security:
   jwt:
