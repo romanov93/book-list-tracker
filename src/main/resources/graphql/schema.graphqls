@@ -1,0 +1,14 @@
+type Query {
+    userById(id: ID): User
+    booksByUserId(id: ID): [Book]
+    bookById(id: ID): Book
+}
+# авторизация и загрузка картинок остаются через рест
+# мутэйшн - это просто методы, которые изменяют и добавляют данные (post и put)
+type Mutation {
+    updateUser(dto: InputUser): User
+    deleteUser(id: ID): Boolean
+    createBook(id: ID dto: InputBook): Book
+    updateBook(dto: InputBook): Book
+    deleteBook(id: ID): Boolean
+}

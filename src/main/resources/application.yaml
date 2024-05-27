@@ -1,5 +1,5 @@
 server:
-  port: 8088 # при cборке контейнера докера - нужно указать порт 8080, на котором работает контейнер джавы
+  port: 8080
 
 spring:
   config:
@@ -21,6 +21,10 @@ spring:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
     default-schema: booklist
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
 
 security:
   jwt:

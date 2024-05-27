@@ -25,7 +25,6 @@ public class UserServiceImpl implements ru.romanov.booktracker.service.interface
     private final UserRepository userRepository;
 
     @Override
-    @Transactional(readOnly = true)
     @Cacheable(value = "UserService::getById", key = "#id")
     public User findById(Long id) {
         return userRepository.findById(id)
