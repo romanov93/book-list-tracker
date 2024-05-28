@@ -2,7 +2,7 @@ package ru.romanov.booktracker.service.interfaces;
 
 public interface BaseService<T> {
 
-    T findById(Long id);
+    T getById(Long id);
 
     T create(T t);
 

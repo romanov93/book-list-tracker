@@ -39,7 +39,7 @@ public class UserController {
     @Operation(summary = "Get UserDto by id")
     @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public UserDto getById(@PathVariable @Argument Long id) {
-        User user = userService.findById(id);
+        User user = userService.getById(id);
         return userMapper.toDto(user);
     }
 

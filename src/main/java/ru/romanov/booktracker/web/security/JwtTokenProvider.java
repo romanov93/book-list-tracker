@@ -80,7 +80,7 @@ public class JwtTokenProvider {
             throw new AccessDeniedException();
         }
         Long userId = Long.valueOf(getId(refreshToken));
-        User user = userService.findById(userId);
+        User user = userService.getById(userId);
         jwtResponse.setId(userId);
         jwtResponse.setUsername(user.getUsername());
         jwtResponse.setAccessToken(

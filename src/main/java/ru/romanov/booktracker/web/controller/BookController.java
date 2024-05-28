@@ -37,7 +37,7 @@ public class BookController {
     @Operation(summary = "Get BookDto by id")
     @PreAuthorize("@customSecurityExpression.canAccessBook(#id)")
     public BookDto getById(@PathVariable @Argument Long id) {
-        Book book = bookService.findById(id);
+        Book book = bookService.getById(id);
         return bookMapper.toDto(book);
     }
 

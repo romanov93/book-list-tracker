@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional(readOnly = true)
     @Cacheable(value = "BookService::findById", key = "#id")
-    public Book findById(Long id) {
+    public Book getById(Long id) {
         return bookRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("No book with id " + id));
@@ -72,7 +72,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @CacheEvict(value = "BookService::findById", key = "#bookId")
     public void uploadImage(Long bookId, BookImage image) {
-        Book book = findById(bookId);
+        Book book = getById(bookId);
         String fileName = imageService.uploadImage(image);
         book.getImages().add(fileName);
         bookRepository.save(book);

@@ -1,4 +1,4 @@
-package booktracker.config;
+package ru.romanov.booktracker.config;
 
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;

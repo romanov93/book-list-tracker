@@ -27,7 +27,7 @@ public class UserServiceImpl
 
     @Override
     @Cacheable(value = "UserService::getById", key = "#id")
-    public User findById(Long id) {
+    public User getById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Not found user with id: " + id));
