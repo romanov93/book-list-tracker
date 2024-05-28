@@ -9,11 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.romanov.booktracker.domain.book.Book;
 import ru.romanov.booktracker.domain.book.BookImage;
 import ru.romanov.booktracker.domain.exception.ResourceNotFoundException;
-import ru.romanov.booktracker.domain.user.User;
 import ru.romanov.booktracker.repository.BookRepository;
 import ru.romanov.booktracker.service.interfaces.BookService;
 import ru.romanov.booktracker.service.interfaces.ImageService;
-import ru.romanov.booktracker.service.interfaces.UserService;
 
 import java.util.List;
 
@@ -24,8 +22,6 @@ import static ru.romanov.booktracker.domain.book.Status.PLANNED_TO_READ;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
-
-    private final UserService userService;
 
     private final ImageService imageService;
 
@@ -48,11 +44,9 @@ public class BookServiceImpl implements BookService {
     @Override
     @Cacheable(value = "BookService::findById", key = "#book.id")
     public Book create(Book book, Long userId) {
-        User user = userService.findById(userId);
         book.setStatus(PLANNED_TO_READ);
         bookRepository.save(book);
-        user.getBooks().add(book);
-        userService.update(user);
+        bookRepository.assignBook(userId, book.getId());
         return book;
     }
 
