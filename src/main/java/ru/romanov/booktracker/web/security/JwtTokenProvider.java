@@ -83,8 +83,15 @@ public class JwtTokenProvider {
         User user = userService.findById(userId);
         jwtResponse.setId(userId);
         jwtResponse.setUsername(user.getUsername());
-        jwtResponse.setAccessToken(createAccessToken(userId, user.getUsername(), user.getRoles()));
-        jwtResponse.setRefreshToken(createRefreshToken(userId, user.getUsername()));
+        jwtResponse.setAccessToken(
+                createAccessToken(
+                        userId,
+                        user.getUsername(),
+                        user.getRoles()));
+        jwtResponse.setRefreshToken(
+                createRefreshToken(
+                        userId,
+                        user.getUsername()));
         return jwtResponse;
     }
 
@@ -103,7 +110,10 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         String username = getUsername(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(
+                userDetails,
+                "",
+                userDetails.getAuthorities());
     }
 
     private String getUsername(String token) {

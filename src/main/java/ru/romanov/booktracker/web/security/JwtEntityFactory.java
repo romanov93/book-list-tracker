@@ -22,7 +22,8 @@ public class JwtEntityFactory {
         );
     }
 
-    private static List<? extends GrantedAuthority> mapRolesToGrantedAuthorities(Collection<Role> roles) {
+    private static List<? extends GrantedAuthority> mapRolesToGrantedAuthorities(
+            Collection<Role> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .toList();

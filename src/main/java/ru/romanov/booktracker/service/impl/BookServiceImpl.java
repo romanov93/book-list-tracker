@@ -34,10 +34,10 @@ public class BookServiceImpl implements BookService {
     @Cacheable(value = "BookService::findById", key = "#id")
     public Book findById(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No book with id " + id));
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("No book with id " + id));
     }
 
-    // не кэшируем потому что сложно/дорого менять состояние кэша при добавлении/удалении книг у юзера
     @Transactional(readOnly = true)
     @Override
     public List<Book> getAllByUserId(Long userId) {

@@ -18,7 +18,8 @@ public class CustomSecurityExpression {
     private final UserService userService;
 
     public boolean canAccessUser(Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication
+                = SecurityContextHolder.getContext().getAuthentication();
 
         JwtEntity user = (JwtEntity) authentication.getPrincipal();
         Long userId = user.getId();
@@ -27,7 +28,8 @@ public class CustomSecurityExpression {
     }
 
     public boolean canAccessBook(Long bookId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication
+                = SecurityContextHolder.getContext().getAuthentication();
 
         JwtEntity user = (JwtEntity) authentication.getPrincipal();
         Long userId = user.getId();

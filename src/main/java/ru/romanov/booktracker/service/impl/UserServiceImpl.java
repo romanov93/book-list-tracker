@@ -18,7 +18,8 @@ import static ru.romanov.booktracker.domain.user.Role.ROLE_USER;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements ru.romanov.booktracker.service.interfaces.UserService {
+public class UserServiceImpl
+        implements ru.romanov.booktracker.service.interfaces.UserService {
 
     private final PasswordEncoder passwordEncoder;
 
@@ -28,7 +29,8 @@ public class UserServiceImpl implements ru.romanov.booktracker.service.interface
     @Cacheable(value = "UserService::getById", key = "#id")
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found user with id: " + id));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Not found user with id: " + id));
     }
 
     @Transactional
@@ -36,10 +38,10 @@ public class UserServiceImpl implements ru.romanov.booktracker.service.interface
     @Cacheable(value = "UserService::getByUsername", key = "#username")
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found user with username: " + username));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Not found user with username: " + username));
     }
 
-    // если мы обновляем юзера - нам нужно, чтобы данные обновились не только в бд, но и в кэше
     @Transactional
     @Override
     @Caching(put = {
@@ -52,7 +54,6 @@ public class UserServiceImpl implements ru.romanov.booktracker.service.interface
         return user;
     }
 
-    // если мы пытаемся создать юзера с уже существующим айди/юзернеймом - мы просто получаем кэш с тем, что уже есть
     @Transactional
     @Override
     @Caching(cacheable = {
@@ -63,7 +64,7 @@ public class UserServiceImpl implements ru.romanov.booktracker.service.interface
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalStateException("User with this name is already exist.");
         } else if (!user.getPassword().equals(user.getPasswordConfirmation())) {
-            throw new IllegalStateException("Password confirmation is not match to password.");
+            throw new IllegalStateException("Password and confirmation is not matches");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Set.of(ROLE_USER));

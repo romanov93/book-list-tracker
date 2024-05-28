@@ -55,7 +55,8 @@ public class BookController {
     @MutationMapping(name = "updateBook")
     @Operation(summary = "Update book")
     @PreAuthorize("@customSecurityExpression.canAccessBook(#bookDto.id)")
-    public BookDto update(@Validated(OnUpdate.class) @RequestBody @Argument BookDto bookDto) {
+    public BookDto update(
+            @Validated(OnUpdate.class) @RequestBody @Argument BookDto bookDto) {
         Book book = bookMapper.toEntity(bookDto);
         Book updatedBook = bookService.update(book);
         return bookMapper.toDto(updatedBook);
