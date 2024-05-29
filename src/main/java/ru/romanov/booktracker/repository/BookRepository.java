@@ -29,4 +29,14 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             @Param("bookId") Long bookId
     );
 
+    @Modifying
+    @Query(value = """
+            INSERT INTO books_images (book_id, image)
+            VALUES (:id, :fileName)
+            """, nativeQuery = true)
+    void addImage(
+            @Param("id") Long id,
+            @Param("fileName") String fileName
+    );
+
 }

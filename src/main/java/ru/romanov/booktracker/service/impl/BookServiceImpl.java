@@ -72,10 +72,8 @@ public class BookServiceImpl implements BookService {
     @Override
     @CacheEvict(value = "BookService::findById", key = "#bookId")
     public void uploadImage(Long bookId, BookImage image) {
-        Book book = getById(bookId);
         String fileName = imageService.uploadImage(image);
-        book.getImages().add(fileName);
-        bookRepository.save(book);
+        bookRepository.addImage(bookId, fileName);
     }
 
     @Override
