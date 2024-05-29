@@ -13,7 +13,6 @@ import ru.romanov.booktracker.domain.exception.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// Данный класс будет перехватывать только исключения в контроллерах. Для валидации дто - другой класс.
 @RestControllerAdvice
 public class ControllerAdvice {
 
@@ -35,7 +34,10 @@ public class ControllerAdvice {
         return new ExceptionBody(e.getMessage());
     }
 
-    @ExceptionHandler({AccessDeniedException.class, org.springframework.security.access.AccessDeniedException.class})
+    @ExceptionHandler({
+            AccessDeniedException.class,
+            org.springframework.security.access.AccessDeniedException.class
+    })
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ExceptionBody handleAccessDenied() {
         return new ExceptionBody("Access denied.");
@@ -49,7 +51,8 @@ public class ControllerAdvice {
         List<FieldError> errors = e.getBindingResult().getFieldErrors();
         exceptionBody.setErrors(errors
                 .stream()
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
+                .collect(Collectors.toMap(
+                        FieldError::getField, FieldError::getDefaultMessage)));
         return exceptionBody;
     }
 

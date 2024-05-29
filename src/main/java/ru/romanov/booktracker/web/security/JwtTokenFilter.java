@@ -26,13 +26,15 @@ public class JwtTokenFilter extends GenericFilterBean {
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
 
-        String bearerToken = ((HttpServletRequest) servletRequest).getHeader("Authorization");
+        String bearerToken
+                = ((HttpServletRequest) servletRequest).getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             bearerToken = bearerToken.substring(7);
         }
         if (bearerToken != null && jwtTokenProvider.isValid(bearerToken)) {
             try {
-                Authentication authentication = jwtTokenProvider.getAuthentication(bearerToken);
+                Authentication authentication =
+                        jwtTokenProvider.getAuthentication(bearerToken);
                 if (authentication != null) {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }

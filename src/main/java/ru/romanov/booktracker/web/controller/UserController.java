@@ -39,7 +39,7 @@ public class UserController {
     @Operation(summary = "Get UserDto by id")
     @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public UserDto getById(@PathVariable @Argument Long id) {
-        User user = userService.findById(id);
+        User user = userService.getById(id);
         return userMapper.toDto(user);
     }
 
@@ -75,8 +75,9 @@ public class UserController {
     @MutationMapping(name = "createBook")
     @Operation(summary = "Add book to user")
     @PreAuthorize("@customSecurityExpression.canAccessUser(#userId)")
-    public BookDto createBook(@PathVariable(name = "id") @Argument Long userId,
-                              @Validated(OnCreate.class) @RequestBody @Argument BookDto bookDto) {
+    public BookDto createBook(
+            @PathVariable(name = "id") @Argument Long userId,
+            @Validated(OnCreate.class) @RequestBody @Argument BookDto bookDto) {
         Book book = bookMapper.toEntity(bookDto);
         Book createdBook = bookService.create(book, userId);
         return bookMapper.toDto(createdBook);

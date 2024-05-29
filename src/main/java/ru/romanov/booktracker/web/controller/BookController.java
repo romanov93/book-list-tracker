@@ -37,7 +37,7 @@ public class BookController {
     @Operation(summary = "Get BookDto by id")
     @PreAuthorize("@customSecurityExpression.canAccessBook(#id)")
     public BookDto getById(@PathVariable @Argument Long id) {
-        Book book = bookService.findById(id);
+        Book book = bookService.getById(id);
         return bookMapper.toDto(book);
     }
 
@@ -55,7 +55,8 @@ public class BookController {
     @MutationMapping(name = "updateBook")
     @Operation(summary = "Update book")
     @PreAuthorize("@customSecurityExpression.canAccessBook(#bookDto.id)")
-    public BookDto update(@Validated(OnUpdate.class) @RequestBody @Argument BookDto bookDto) {
+    public BookDto update(
+            @Validated(OnUpdate.class) @RequestBody @Argument BookDto bookDto) {
         Book book = bookMapper.toEntity(bookDto);
         Book updatedBook = bookService.update(book);
         return bookMapper.toDto(updatedBook);
