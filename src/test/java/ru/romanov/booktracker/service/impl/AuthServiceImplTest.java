@@ -1,5 +1,6 @@
 package ru.romanov.booktracker.service.impl;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.romanov.booktracker.config.TestConfig;
@@ -22,7 +25,6 @@ import ru.romanov.booktracker.web.dto.auth.JwtResponse;
 import ru.romanov.booktracker.web.security.JwtTokenProvider;
 
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,6 +94,25 @@ public class AuthServiceImplTest {
         assertThat(userId).isEqualTo(jwtResponse.getId());
         assertThat(jwtResponse.getAccessToken()).isNotNull();
         assertThat(jwtResponse.getRefreshToken()).isNotNull();
+    }
+
+    @Test
+    void loginWithWrongPassword() {
+        String username = "username";
+        String wrongPassword = "wrongPassword";
+        JwtRequest jwtRequest = new JwtRequest();
+        jwtRequest.setUsername(username);
+        jwtRequest.setPassword(wrongPassword);
+
+        Mockito.when(authenticationManager.authenticate(
+                   new UsernamePasswordAuthenticationToken(
+                           jwtRequest.getUsername(),
+                           jwtRequest.getPassword()
+                   )
+                )).thenThrow(BadCredentialsException.class);
+
+        Assertions.assertThrows(AuthenticationException.class,
+                () -> authService.login(jwtRequest));
     }
 
     @Test
