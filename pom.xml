@@ -35,6 +35,8 @@
         <mockito.version>5.12.0</mockito.version>
         <assertj.version>3.26.0</assertj.version>
         <jacoco.version>0.8.12</jacoco.version>
+
+        <jacoco.minimum.coverage.percent>0.60</jacoco.minimum.coverage.percent>
     </properties>
 
     <dependencies>
@@ -267,11 +269,11 @@
                                         <limit implementation="org.jacoco.report.check.Limit">
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.60</minimum>
+                                            <minimum>${jacoco.minimum.coverage.percent}</minimum>
                                         </limit>
                                     </limits>
                                     <includes>
-                                        <include>com.example.tasklist.service.impl</include>
+                                        <include>ru.romanov.booktracker.service.impl</include>
                                     </includes>
                                 </rule>
                             </rules>
