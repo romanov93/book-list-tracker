@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.romanov.booktracker.domain.exception.ResourceNotFoundException;
 import ru.romanov.booktracker.domain.user.User;
 import ru.romanov.booktracker.repository.UserRepository;
+import ru.romanov.booktracker.service.interfaces.UserService;
 
 import java.util.Set;
 
@@ -18,8 +19,7 @@ import static ru.romanov.booktracker.domain.user.Role.ROLE_USER;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl
-        implements ru.romanov.booktracker.service.interfaces.UserService {
+public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
